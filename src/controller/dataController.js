@@ -15,7 +15,10 @@ const getcrypto=async function(req,res){
       marketCapUsd: val.marketCapUsd,
       priceUsd: val.priceUsd,
     }));
-    
+    const uniqueCoin=await dataModel.find()
+    if(uniqueCoin.length!==0){
+        return res.status(400).send({status:true,message:'Data is already present', data:uniqueCoin})
+    }
     // create coin in database
     await dataModel.create(coins)
    
